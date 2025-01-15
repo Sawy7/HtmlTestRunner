@@ -55,7 +55,7 @@
                         {%- if (test_case.stdout or test_case.err or test_case.err) and test_case.outcome != test_case.SKIP %}
                         <tr style="display:none;">
                             <td class="col-xs-9" colspan="3">
-                                {%- if test_case.stdout %}<p class="text-stream">{{ test_case.stdout }}</p>{% endif %}
+                                {%- if test_case.stdout %}<p class="text-stream">{{ test_case.get_stdout_html() }}</p>{% endif %}
                                 {%- if test_case.err %}<p class="stderr">{{ test_case.err[0].__name__ }}: {{ test_case.err[1] }}</p>{% endif %}
                                 {%- if test_case.err %}<p class="text-stream stderr">{{ test_case.test_exception_info }}</p>{% endif %}
                             </td>
@@ -64,7 +64,7 @@
                         {%- if (test_case.stdout or test_case.err or test_case.err) and test_case.outcome == test_case.SKIP %}
                         <tr style="display:none;">
                             <td class="col-xs-9" colspan="3">
-                                {%- if test_case.stdout %}<p class="text-stream">{{ test_case.stdout }}</p>{% endif %}
+                                {%- if test_case.stdout %}<p class="text-stream">{{ test_case.get_stdout_html() }}</p>{% endif %}
                                 {%- if test_case.err %}<p class="text-stream stderr">{{ test_case.err }}</p>{% endif %}
                             </td>
                         </tr>
