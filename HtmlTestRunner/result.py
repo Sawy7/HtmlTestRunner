@@ -108,7 +108,7 @@ class _TestInfo(object):
 
     def get_stdout_html(self):
         conv = Ansi2HTMLConverter()
-        return conv.convert(self.stdout)
+        return conv.convert(self.stdout, full=False)
 
 
 class _SubTestInfos(object):
