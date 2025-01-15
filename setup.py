@@ -65,7 +65,7 @@ from setuptools import setup
 
 requirements = [
     # Package requirements here
-    "Jinja2>=2.10.1"
+    "Jinja2>=2.10.1",
     "ansi2html>=1.9.2"
 ]
 
