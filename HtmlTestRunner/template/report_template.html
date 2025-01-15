@@ -55,17 +55,17 @@
                         {%- if (test_case.stdout or test_case.err or test_case.err) and test_case.outcome != test_case.SKIP %}
                         <tr style="display:none;">
                             <td class="col-xs-9" colspan="3">
-                                {%- if test_case.stdout %}<p>{{ test_case.stdout }}</p>{% endif %}
-                                {%- if test_case.err %}<p style="color:maroon;">{{ test_case.err[0].__name__ }}: {{ test_case.err[1] }}</p>{% endif %}
-                                {%- if test_case.err %}<p style="color:maroon;">{{ test_case.test_exception_info }}</p>{% endif %}
+                                {%- if test_case.stdout %}<p class="text-stream">{{ test_case.stdout }}</p>{% endif %}
+                                {%- if test_case.err %}<p class="stderr">{{ test_case.err[0].__name__ }}: {{ test_case.err[1] }}</p>{% endif %}
+                                {%- if test_case.err %}<p class="text-stream stderr">{{ test_case.test_exception_info }}</p>{% endif %}
                             </td>
                         </tr>
                         {%- endif %}
                         {%- if (test_case.stdout or test_case.err or test_case.err) and test_case.outcome == test_case.SKIP %}
                         <tr style="display:none;">
                             <td class="col-xs-9" colspan="3">
-                                {%- if test_case.stdout %}<p>{{ test_case.stdout }}</p>{% endif %}
-                                {%- if test_case.err %}<p style="color:maroon;">{{ test_case.err }}</p>{% endif %}
+                                {%- if test_case.stdout %}<p class="text-stream">{{ test_case.stdout }}</p>{% endif %}
+                                {%- if test_case.err %}<p class="text-stream stderr">{{ test_case.err }}</p>{% endif %}
                             </td>
                         </tr>
                         {%- endif %}
@@ -114,8 +114,8 @@
                                         {%- if subtest.err or subtest.err %}
                                         <tr style="display:none;">
                                             <td class="col-xs-9" colspan="3">
-                                                {%- if subtest.err %}<p style="color:maroon;">{{ subtest.err[0].__name__ }}: {{ subtest.err[1] }}</p>{% endif %}
-                                                {%- if subtest.err %}<p style="color:maroon;">{{ subtest.test_exception_info }}</p>{% endif %}
+                                                {%- if subtest.err %}<p class="stderr">{{ subtest.err[0].__name__ }}: {{ subtest.err[1] }}</p>{% endif %}
+                                                {%- if subtest.err %}<p class="text-stream stderr">{{ subtest.test_exception_info }}</p>{% endif %}
                                             </td>
                                         </tr>
                                         {%- endif %}
@@ -139,6 +139,14 @@
         {%- endif %}
         {%- endfor %}
     </div>
+    <style>
+        .text-stream {
+            white-space: pre-wrap
+        }
+        .stderr {
+            color: maroon;
+        }
+    </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
