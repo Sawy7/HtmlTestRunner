@@ -6,6 +6,7 @@ import time
 import copy
 import traceback
 from ansi2html import Ansi2HTMLConverter
+from ansi2html.style import get_styles
 from unittest import TestResult, TextTestResult
 from unittest.result import failfast
 
@@ -108,7 +109,16 @@ class _TestInfo(object):
 
     def get_stdout_html(self):
         conv = Ansi2HTMLConverter()
-        return conv.convert(self.stdout, full=False)
+        attrs = conv.prepare(self.stdout)
+        all_styles = get_styles(conv.dark_bg, conv.line_wrap, conv.scheme)
+        used_styles = filter(
+            lambda e: e.klass.lstrip(".") in attrs["styles"], all_styles
+        )
+        style = [(s.klass.lstrip("."), s.kw) for s in used_styles]
+        body = attrs["body"]
+        for i in range(len(style)):
+            body = body.replace(f'class="{style[i][0]}"', f'style="{style[i][1]}"')
+        return body
 
 
 class _SubTestInfos(object):
